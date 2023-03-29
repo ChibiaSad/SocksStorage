@@ -17,7 +17,7 @@ public class SocksService {
     private final SocksRepository repository;
 
     /**
-     * Method to search total quantity of socks pairs in the storage
+     * Method for search the total number of socks pairs in the storage
      * that meet the condition of chosen operation.
      * @param color - socks color.
      * @param operation - search term name.

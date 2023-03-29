@@ -7,10 +7,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,6 +21,8 @@ import javax.validation.constraints.Min;
 @RestController
 @RequestMapping("/api/socks")
 @RequiredArgsConstructor
+@Slf4j
+@Validated
 public class SocksController {
     private final SocksService service;
 
@@ -47,12 +50,7 @@ public class SocksController {
             }
     )
     @PostMapping(path = "/income", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> postSocksIncome(@RequestBody @Valid UpdateQuantityDTO update,
-                                                BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
+    public ResponseEntity<Void> postSocksIncome(@RequestBody @Valid UpdateQuantityDTO update) {
         service.incomeSocks(update);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -66,12 +64,7 @@ public class SocksController {
             }
     )
     @PostMapping(path = "/outcome", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> postSocksOutcome(@RequestBody @Valid UpdateQuantityDTO update,
-                                                 BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
+    public ResponseEntity<Void> postSocksOutcome(@RequestBody @Valid UpdateQuantityDTO update) {
         service.outcomeSocks(update);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
