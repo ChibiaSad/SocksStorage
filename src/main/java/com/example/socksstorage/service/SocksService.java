@@ -28,7 +28,7 @@ public class SocksService {
         log.debug("method getCount had been started");
         Integer quantity;
         switch (operation) {
-            case "equals": {
+            case "equal": {
                 quantity = repository.findQuantityByColorAndCottonPart(color, cottonPart)
                         .orElse(0);
                 break;
